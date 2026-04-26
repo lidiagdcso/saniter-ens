@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saniter — Sanidad Ambiental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde:      #1a1a1a;
+      --verde-med:  #2e2e2e;
+      --verde-claro:#cc1f1f;
+      --crema:      #f7f7f7;
+      --crema-osc:  #e0e0e0;
+      --marron:     #8a0000;
+      --texto:      #1c1c1c;
+      --blanco:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--crema);
+      color: var(--texto);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(15,15,15,0.97);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-weight: 900;
+      color: var(--crema); letter-spacing: 0.05em;
+    }
+    .nav-logo span { color: var(--verde-claro); }
+    nav ul { list-style: none; display: flex; gap: 2.5rem; }
+    nav ul a {
+      color: var(--crema-osc); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--blanco); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(160deg, rgba(20,20,20,0.88) 0%, rgba(20,20,20,0.60) 60%, transparent 100%),
+        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80') center/cover no-repeat;
+      display: flex; align-items: center;
+      padding: 0 4rem;
+      position: relative;
+    }
+    .hero-content { max-width: 620px; animation: fadeUp 0.9s ease both; }
+    .hero-badge {
+      display: inline-block;
+      background: var(--verde-claro); color: var(--blanco);
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.4rem 1rem;
+      border-radius: 2rem; margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--blanco); margin-bottom: 1.4rem;
+    }
+    h1 em { color: var(--verde-claro); font-style: normal; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(245,240,232,0.88);
+      line-height: 1.7; margin-bottom: 2.4rem; font-weight: 300;
+    }
+    .btn {
+      display: inline-block; padding: 0.9rem 2.2rem;
+      background: var(--verde-claro); color: var(--blanco);
+      text-decoration: none; font-weight: 500;
+      font-size: 0.95rem; border-radius: 0.4rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn:hover { background: var(--verde-med); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; border: 2px solid rgba(245,240,232,0.6);
+      color: var(--crema); margin-left: 1rem;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── STRIP ── */
+    .strip {
+      background: #111111;
+      display: flex; justify-content: space-around;
+      padding: 2rem 4rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .strip-item { text-align: center; color: var(--crema); }
+    .strip-item strong {
+      display: block; font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 900; color: var(--verde-claro);
+    }
+    .strip-item span { font-size: 0.85rem; opacity: 0.8; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ── SECTION GENERAL ── */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--verde-claro);
+      margin-bottom: 0.8rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--verde); margin-bottom: 1.2rem;
+    }
+    .section-intro {
+      font-size: 1.05rem; color: #444; line-height: 1.8;
+      max-width: 680px; margin-bottom: 3rem; font-weight: 300;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios { background: var(--blanco); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--crema);
+      border-radius: 0.8rem;
+      padding: 2.2rem 1.8rem;
+      border-left: 4px solid var(--verde-claro);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .service-icon {
+      font-size: 2.2rem; margin-bottom: 1rem;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; color: var(--verde);
+      margin-bottom: 0.7rem;
+    }
+    .service-card p { font-size: 0.92rem; color: #555; line-height: 1.7; font-weight: 300; }
+
+    /* ── NOSOTROS ── */
+    #nosotros {
+      background: var(--crema);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative; border-radius: 1rem; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .about-badge {
+      position: absolute; bottom: 1.5rem; left: 1.5rem;
+      background: #111111; color: var(--crema);
+      padding: 1rem 1.5rem; border-radius: 0.6rem;
+      font-family: 'Playfair Display', serif;
+    }
+    .about-badge strong { display: block; font-size: 1.8rem; color: var(--verde-claro); }
+    .about-badge span { font-size: 0.8rem; opacity: 0.8; }
+    .about-text ul { list-style: none; margin-top: 1.5rem; }
+    .about-text ul li {
+      padding: 0.6rem 0; border-bottom: 1px solid var(--crema-osc);
+      font-size: 0.95rem; color: #444; display: flex; align-items: center; gap: 0.8rem;
+    }
+    .about-text ul li::before {
+      content: '✓'; color: var(--verde-claro); font-weight: 700; font-size: 1.1rem;
+    }
+
+    /* ── CONTACTO ── */
+    #contacto { background: #1a1a1a; }
+    #contacto h2 { color: var(--crema); }
+    #contacto .section-intro { color: rgba(245,240,232,0.75); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .contact-icon {
+      background: #333333; border-radius: 0.5rem;
+      width: 44px; height: 44px; display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .contact-item h4 { color: var(--verde-claro); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .contact-item p { color: var(--crema-osc); font-size: 0.95rem; font-weight: 300; }
+    form { display: flex; flex-direction: column; gap: 1rem; }
+    form input, form textarea, form select {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+      color: var(--crema); padding: 0.9rem 1.1rem;
+      border-radius: 0.4rem; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; outline: none; transition: border-color 0.2s;
+    }
+    form input::placeholder, form textarea::placeholder { color: rgba(245,240,232,0.4); }
+    form input:focus, form textarea:focus { border-color: var(--verde-claro); }
+    form textarea { min-height: 120px; resize: vertical; }
+    form button {
+      background: var(--verde-claro); color: var(--blanco);
+      border: none; padding: 1rem; border-radius: 0.4rem;
+      font-family: 'DM Sans', sans-serif; font-size: 1rem;
+      font-weight: 500; cursor: pointer; transition: background 0.2s;
+    }
+    form button:hover { background: #3d8a58; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a; color: rgba(220,220,220,0.5);
+      text-align: center; padding: 2rem 4rem;
+      font-size: 0.85rem;
+    }
+    footer strong { color: var(--verde-claro); }
+
+    /* ── ANIMACIONES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { display: none; }
+      #hero { padding: 0 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .strip { padding: 1.5rem; }
+      #nosotros { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">SANI<span>TER</span></div>
+    <ul>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <span class="hero-badge">Más de 25 años de experiencia</span>
+      <h1>Sanidad ambiental <em>profesional</em> a tu servicio</h1>
+      <p class="hero-sub">
+        Soluciones integrales de control de plagas, tratamiento de aguas y servicios DDD
+        para empresas, administraciones públicas y particulares en Madrid y alrededores.
+      </p>
+      <a href="#servicios" class="btn">Nuestros servicios</a>
+      <a href="#contacto" class="btn btn-outline">Solicitar presupuesto</a>
+    </div>
+  </section>
+
+  <!-- STRIP DE DATOS -->
+  <div class="strip">
+    <div class="strip-item"><strong>+25</strong><span>Años de experiencia</span></div>
+    <div class="strip-item"><strong>+800</strong><span>Clientes activos</span></div>
+    <div class="strip-item"><strong>100%</strong><span>Productos homologados</span></div>
+    <div class="strip-item"><strong>48h</strong><span>Tiempo de respuesta</span></div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <p class="section-label">Lo que hacemos</p>
+    <h2>Servicios especializados</h2>
+    <p class="section-intro">
+      Contamos con técnicos certificados y productos biocidas homologados conforme
+      al Real Decreto 830/2010. Toda nuestra actividad queda registrada para garantizar
+      la trazabilidad legal exigida.
+    </p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🐀</div>
+        <h3>Desratización</h3>
+        <p>Control y eliminación de roedores mediante cebos rodenticidas registrados y trampas de captura en vivo. Seguimiento periódico y control de la eficacia.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🪲</div>
+        <h3>Desinsectación</h3>
+        <p>Tratamientos contra insectos rastreros y voladores: cucarachas, hormigas, mosquitos, avispas y otros. Métodos adaptados al tipo de instalación.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🦠</div>
+        <h3>Desinfección</h3>
+        <p>Eliminación de microorganismos patógenos en superficies, instalaciones y aire mediante productos biocidas de alta eficacia con certificación oficial.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💧</div>
+        <h3>Tratamiento de Aguas</h3>
+        <p>Mantenimiento de instalaciones de agua sanitaria, piscinas y torres de refrigeración. Prevención de legionela y control microbiológico.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏛️</div>
+        <h3>Sector Público</h3>
+        <p>Servicios especializados para administraciones públicas, centros educativos, sanitarios y dependencias municipales. Documentación completa y trazabilidad garantizada.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3>Consultoría y Auditoría</h3>
+        <p>Evaluación del estado sanitario de instalaciones, elaboración de planes de control de plagas y asesoramiento en cumplimiento normativo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros">
+    <div class="about-img-wrap">
+      <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="Técnico de Saniter trabajando">
+      <div class="about-badge">
+        <strong>+25</strong>
+        <span>años en el sector</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Quiénes somos</p>
+      <h2>Una empresa con experiencia y compromiso</h2>
+      <p class="section-intro" style="margin-bottom:1rem;">
+        Saniter nació hace más de 25 años con el objetivo de ofrecer servicios de sanidad
+        ambiental de calidad a empresas y administraciones de la Comunidad de Madrid.
+        Hoy somos un equipo de técnicos certificados comprometidos con la salud pública
+        y el medio ambiente.
+      </p>
+      <ul>
+        <li>Empresa inscrita en el Registro Oficial de Establecimientos y Servicios Biocidas</li>
+        <li>Técnicos con carnet de aplicador de biocidas en vigor</li>
+        <li>Gestión documental completa y trazabilidad de productos</li>
+        <li>Seguro de responsabilidad civil y cobertura total</li>
+        <li>Proveedora homologada de Administraciones Públicas</li>
+        <li>Certificación y cumplimiento del Esquema Nacional de Seguridad (ENS)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <p class="section-label">Estamos aquí</p>
+    <h2>Contacta con nosotros</h2>
+    <p class="section-intro">
+      Solicita un presupuesto sin compromiso o resuelve cualquier duda.
+      Nuestro equipo te responde en menos de 48 horas.
+    </p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Dirección</h4>
+            <p>Calle Ejemplo 12, Nave 3<br>28000 Madrid, España</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Teléfono</h4>
+            <p>+34 91 000 00 00<br>Lunes a Viernes, 8:00–18:00</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p>info@saniter.local<br>comercial@saniter.local</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div>
+            <h4>Horario</h4>
+            <p>Lunes–Viernes: 8:00–18:00<br>Urgencias: 24 horas</p>
+          </div>
+        </div>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('Mensaje enviado. Nos pondremos en contacto contigo en breve.');">
+        <input type="text" placeholder="Nombre y apellidos" required>
+        <input type="email" placeholder="Correo electrónico" required>
+        <input type="tel" placeholder="Teléfono de contacto">
+        <select>
+          <option value="" disabled selected>Tipo de servicio</option>
+          <option>Desratización</option>
+          <option>Desinsectación</option>
+          <option>Desinfección</option>
+          <option>Tratamiento de Aguas</option>
+          <option>Sector Público</option>
+          <option>Consultoría</option>
+          <option>Otro</option>
+        </select>
+        <textarea placeholder="Describe brevemente tu necesidad..."></textarea>
+        <button type="submit">Enviar solicitud</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <strong>Saniter</strong> — Sanidad Ambiental Profesional · Madrid · info@saniter.local</p>
+    <p style="margin-top:0.4rem;">Empresa inscrita en el Registro Oficial de Establecimientos y Servicios Biocidas · RD 830/2010</p>
+  </footer>
+
+</body>
+</html>
