@@ -1,0 +1,23 @@
+# ============================================================
+# sshd_config bastionado — ENS Categoría MEDIA
+# Control ENS: [op.acc.2] [op.acc.4]
+# ============================================================
+ 
+# Puerto no estándar
+Port 2222
+ 
+# Deshabilitar acceso root por SSH
+PermitRootLogin no
+ 
+# Mantener autenticación por contraseña (compatible con scripts backup)
+PasswordAuthentication yes
+ 
+# Limitar intentos de autenticación
+MaxAuthTries 3
+LoginGraceTime 30
+ 
+# Restringir usuarios permitidos
+AllowUsers administrador
+ 
+# Algoritmos MAC seguros — eliminar MD5 y 96-bit
+MACs hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
