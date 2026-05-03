@@ -49,7 +49,7 @@ saniter-ens/
 
 | Código      | Medida                       | Implementación                   |
 | ----------- | ---------------------------- | -------------------------------- |
-| [op.pl.1]   | Análisis de riesgos          | MAGERIT v3 — §4.1.4              |
+| [op.pl.1]   | Análisis de riesgos          | MAGERIT v3                       |
 | [op.acc.1]  | Identificación única         | AD + MariaDB usuarios por rol    |
 | [op.acc.2]  | Mínimo privilegio            | GPOs + permisos BBDD             |
 | [op.acc.4]  | Autenticación robusta        | GPO contraseñas + SSH hardening  |
