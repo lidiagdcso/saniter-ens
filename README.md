@@ -44,3 +44,32 @@ saniter-ens/
 ```
 
 ---
+
+## Controles ENS implementados
+
+| Código      | Medida                       | Implementación                   |
+| ----------- | ---------------------------- | -------------------------------- |
+| [op.pl.1]   | Análisis de riesgos          | MAGERIT v3 — §4.1.4              |
+| [op.acc.1]  | Identificación única         | AD + MariaDB usuarios por rol    |
+| [op.acc.2]  | Mínimo privilegio            | GPOs + permisos BBDD             |
+| [op.acc.4]  | Autenticación robusta        | GPO contraseñas + SSH hardening  |
+| [op.net.1]  | Segregación de redes         | OPNsense WAN/LAN + UFW           |
+| [op.vig.1]  | Detección de deficiencias    | OpenVAS pre y post bastionado    |
+| [mp.com.1]  | Perímetro seguro             | OPNsense firewall + reglas       |
+| [mp.s.1]    | Configuración segura inicial | Hardening Ubuntu y Windows       |
+| [op.cont.2] | Copias de seguridad          | mysqldump + snapshots VirtualBox |
+
+---
+
+## Resultados de las auditorías
+
+| Servidor       | Vulns. pre | Vulns. post | Reducción |
+| -------------- | ---------- | ----------- | --------- |
+| Ubuntu Server  | 5          | 2           | 60%       |
+| Windows Server | 2          | 1           | 50%       |
+
+---
+
+## Licencia
+
+Proyecto académico. Uso libre para fines educativos con atribución.
