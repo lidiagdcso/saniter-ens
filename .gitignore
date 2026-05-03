@@ -1,0 +1,33 @@
+# Snapshots y discos virtuales
+*.vdi
+*.vmdk
+*.vhd
+*.ova
+*.ovf
+ 
+# Claves privadas y certificados
+*.key
+*.pem
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+ 
+# Archivos con contraseñas
+*.env
+.env*
+secrets.txt
+passwords.txt
+ 
+# Volcados de base de datos con datos reales
+*.sql
+ 
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+ 
+# Carpetas de sistema
+__pycache__/
+node_modules/
